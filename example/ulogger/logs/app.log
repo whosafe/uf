@@ -1,0 +1,8 @@
+[MyApp] 2025-12-12 14:24:00 [DEBUG] logger.go:96 这是 Debug 日志
+[MyApp] 2025-12-12 14:24:00 [INFO] logger.go:101 这是 Info 日志
+[MyApp] 2025-12-12 14:24:00 [WARN] logger.go:106 这是 Warn 日志 key=value
+[MyApp] 2025-12-12 14:24:00 [ERROR] logger.go:111 这是 Error 日志 user=alice
+[MyApp] 2025-12-12 14:29:09 [DEBUG] logger.go:94 这是 Debug 日志
+[MyApp] 2025-12-12 14:29:09 [INFO] logger.go:99 这是 Info 日志
+[MyApp] 2025-12-12 14:29:09 [WARN] logger.go:104 这是 Warn 日志 key=value
+[MyApp] 2025-12-12 14:29:09 [ERROR] logger.go:109 这是 Error 日志 user=alice

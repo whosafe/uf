@@ -1,0 +1,3 @@
+[GLOBAL] 14:14:46 使用全局 Logger
+[GLOBAL] 14:14:46 这是全局警告
+[GLOBAL] 14:14:46 标准库 slog 也会使用我们的 Logger

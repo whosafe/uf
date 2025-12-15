@@ -1,0 +1,11 @@
+logger:
+  path: "./logs"
+  file: "app.log"
+  prefix: "[MyApp]"
+  level: "debug"
+  use_standard_log_format: true
+  short_file: true
+  stdout: true
+  rotate_size: 1048576  # 1MB
+  rotate_backup_limit: 5
+  rotate_backup_compress: 6

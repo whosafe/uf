@@ -1,0 +1,1 @@
+{"attrs":{"file":"./logs/app.json","format":"json"},"level":"INFO","msg":"写入 JSON 日志","source":"logger.go:99","time":"2025-12-12T14:40:59.721+08:00"}

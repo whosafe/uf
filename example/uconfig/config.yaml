@@ -1,0 +1,17 @@
+server:
+  host: "0.0.0.1"
+  port: 
+    - 8080
+    - 8081
+    - 8082
+
+database:
+  dsn: "user:pass@tcp(localhost:3306)/dbname"
+  max_open: 100
+  logger:
+    level: "debug"
+    path: "/var/log/app.log"
+
+logger:
+  level: "debug"
+  path: "/var/log/app.log"
