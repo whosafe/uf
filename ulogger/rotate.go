@@ -1,7 +1,6 @@
 package ulogger
 
 import (
-	"io"
 	"os"
 	"sync"
 	"time"
@@ -177,27 +176,4 @@ func (rw *rotateWriter) Sync() error {
 		return rw.file.Sync()
 	}
 	return nil
-}
-
-// multiWriter 多输出 Writer
-type multiWriter struct {
-	writers []io.Writer
-}
-
-// newMultiWriter 创建多输出 Writer
-func newMultiWriter(writers ...io.Writer) *multiWriter {
-	return &multiWriter{
-		writers: writers,
-	}
-}
-
-// Write 实现 io.Writer 接口
-func (mw *multiWriter) Write(p []byte) (n int, err error) {
-	for _, w := range mw.writers {
-		n, err = w.Write(p)
-		if err != nil {
-			return
-		}
-	}
-	return len(p), nil
 }

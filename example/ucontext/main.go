@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"iutime.com/utime/uf/ucontext"
-	"iutime.com/utime/uf/ulogger"
+	"github.com/whosafe/uf/ucontext"
+	"github.com/whosafe/uf/ulogger"
 )
 
 func main() {

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log/slog"
 
-	"iutime.com/utime/uf/ulogger"
+	"github.com/whosafe/uf/ulogger"
 )
 
-func main() {
+func FormatDemo() {
 	println("=== 日志格式演示 ===\n")
 
 	// 1. 文本格式（标准）

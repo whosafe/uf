@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/whosafe/uf/uerror"
 )
 
 // Snowflake ID 生成器
@@ -22,7 +24,6 @@ const (
 // Snowflake 雪花算法 ID 生成器
 type Snowflake struct {
 	mu            sync.Mutex
-	timestamp     int64
 	workerID      int64
 	sequence      int64
 	lastTimestamp int64
@@ -31,7 +32,7 @@ type Snowflake struct {
 // NewSnowflake 创建雪花算法生成器
 func NewSnowflake(workerID int64) (*Snowflake, error) {
 	if workerID < 0 || workerID > maxWorkerID {
-		return nil, fmt.Errorf("worker ID must be between 0 and %d", maxWorkerID)
+		return nil, uerror.New(fmt.Sprintf("worker ID must be between 0 and %d", maxWorkerID))
 	}
 
 	return &Snowflake{

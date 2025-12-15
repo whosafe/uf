@@ -3,9 +3,9 @@ package rule
 import (
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Lowercase 小写验证规则
@@ -26,7 +26,7 @@ func (l *Lowercase) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (l *Lowercase) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (l *Lowercase) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("lowercase", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -59,7 +59,7 @@ func (u *Uppercase) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (u *Uppercase) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (u *Uppercase) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("uppercase", lang...)
 	return replaceAll(template, "{field}", field)
 }

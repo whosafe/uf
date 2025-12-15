@@ -4,15 +4,15 @@ import (
 	"regexp"
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // HTML标签正则
 var htmlRegex = regexp.MustCompile(`<[^>]+>`)
 
-// SQL注入关键�?
+// SQL注入关键
 var sqlKeywords = []string{
 	"select", "insert", "update", "delete", "drop", "create",
 	"alter", "exec", "execute", "script", "union", "where",
@@ -27,9 +27,9 @@ var xssPatterns = []*regexp.Regexp{
 	regexp.MustCompile(`<iframe[^>]*>`),
 }
 
-// StrongPassword 强密码验证规�?
+// StrongPassword 强密码验证规则
 type StrongPassword struct {
-	MinLength int // 最小长�?默认8
+	MinLength int // 最小长默认8
 }
 
 // Validate 执行验证
@@ -48,18 +48,18 @@ func (s *StrongPassword) Validate(value any) bool {
 		minLen = 8
 	}
 
-	// 检查长�?
+	// 检查长
 	if len(str) < minLen {
 		return false
 	}
 
-	// 检查是否包含大写字�?
+	// 检查是否包含大写字
 	hasUpper := false
-	// 检查是否包含小写字�?
+	// 检查是否包含小写字
 	hasLower := false
-	// 检查是否包含数�?
+	// 检查是否包含数
 	hasDigit := false
-	// 检查是否包含特殊字�?
+	// 检查是否包含特殊字
 	hasSpecial := false
 
 	for _, r := range str {
@@ -79,7 +79,7 @@ func (s *StrongPassword) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (s *StrongPassword) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (s *StrongPassword) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("strong_password", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -89,7 +89,7 @@ func (s *StrongPassword) Name() string {
 	return "strong_password"
 }
 
-// NewStrongPassword 创建强密码验证规�?
+// NewStrongPassword 创建强密码验证规则
 func NewStrongPassword(minLength ...int) *StrongPassword {
 	sp := &StrongPassword{MinLength: 8}
 	if len(minLength) > 0 {
@@ -116,7 +116,7 @@ func (n *NoHTML) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *NoHTML) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *NoHTML) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("no_html", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -156,7 +156,7 @@ func (n *NoSQL) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *NoSQL) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *NoSQL) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("no_sql", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -196,7 +196,7 @@ func (n *NoXSS) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *NoXSS) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *NoXSS) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("no_xss", lang...)
 	return replaceAll(template, "{field}", field)
 }

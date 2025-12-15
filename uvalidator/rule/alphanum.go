@@ -3,9 +3,9 @@ package rule
 import (
 	"unicode"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Alphanum 只包含字母和数字验证规则
@@ -31,7 +31,7 @@ func (a *Alphanum) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (a *Alphanum) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (a *Alphanum) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("alphanum", lang...)
 	return replaceAll(template, "{field}", field)
 }

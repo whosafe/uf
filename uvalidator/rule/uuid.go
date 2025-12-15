@@ -3,9 +3,9 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // UUID v4 格式正则
@@ -29,7 +29,7 @@ func (u *UUID) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (u *UUID) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (u *UUID) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("uuid", lang...)
 	return replaceAll(template, "{field}", field)
 }

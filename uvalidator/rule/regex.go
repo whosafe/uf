@@ -3,12 +3,12 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Regex 正则表达式验证规�?
+// Regex 正则表达式验证规则
 type Regex struct {
 	Pattern string
 	regex   *regexp.Regexp
@@ -25,7 +25,7 @@ func (r *Regex) Validate(value any) bool {
 		return true
 	}
 
-	// 延迟编译正则表达�?
+	// 延迟编译正则表达
 	if r.regex == nil {
 		var err error
 		r.regex, err = regexp.Compile(r.Pattern)
@@ -38,7 +38,7 @@ func (r *Regex) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (r *Regex) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (r *Regex) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("regex", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", r.Pattern)
@@ -50,7 +50,7 @@ func (r *Regex) Name() string {
 	return "regex"
 }
 
-// NewRegex 创建正则表达式验证规�?
+// NewRegex 创建正则表达式验证规则
 func NewRegex(pattern string) *Regex {
 	return &Regex{Pattern: pattern}
 }

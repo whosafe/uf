@@ -58,11 +58,19 @@ func (f *TextFormatter) formatStandard(buf *strings.Builder, r slog.Record, conf
 	buf.WriteString(r.Message)
 
 	// 属性
+	// 【安全修复】对敏感字段进行脱敏处理
 	r.Attrs(func(a slog.Attr) bool {
 		buf.WriteString(" ")
 		buf.WriteString(a.Key)
 		buf.WriteString("=")
-		buf.WriteString(a.Value.String())
+		// 如果key是敏感字段,脱敏value
+		if isSensitiveKey(a.Key) {
+			buf.WriteString("***REDACTED***")
+		} else {
+			// 对value进行脱敏检查
+			valStr := a.Value.String()
+			buf.WriteString(sanitizeString(valStr))
+		}
 		return true
 	})
 }
@@ -77,11 +85,19 @@ func (f *TextFormatter) formatSimple(buf *strings.Builder, r slog.Record, config
 	buf.WriteString(r.Message)
 
 	// 属性
+	// 【安全修复】对敏感字段进行脱敏处理
 	r.Attrs(func(a slog.Attr) bool {
 		buf.WriteString(" ")
 		buf.WriteString(a.Key)
 		buf.WriteString("=")
-		buf.WriteString(a.Value.String())
+		// 如果key是敏感字段,脱敏value
+		if isSensitiveKey(a.Key) {
+			buf.WriteString("***REDACTED***")
+		} else {
+			// 对value进行脱敏检查
+			valStr := a.Value.String()
+			buf.WriteString(sanitizeString(valStr))
+		}
 		return true
 	})
 }

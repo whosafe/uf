@@ -1,8 +1,8 @@
 package rule
 
 import (
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Required 必填验证规则
@@ -25,7 +25,7 @@ func (r *Required) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (r *Required) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (r *Required) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("required", lang...)
 	return replaceAll(template, "{field}", field)
 }

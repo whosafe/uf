@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"iutime.com/utime/uf/uerror"
+	"github.com/whosafe/uf/uerror"
 )
 
 var (
@@ -38,11 +38,11 @@ func Callback(key string, cb ICallback) error {
 	defer rootMu.RUnlock()
 
 	if rootNode == nil {
-		return fmt.Errorf("config not loaded")
+		return uerror.New("config not loaded")
 	}
 
 	if rootNode.Kind != MappingNode {
-		return fmt.Errorf("config root must be a mapping")
+		return uerror.New("config root must be a mapping")
 	}
 
 	if child, ok := rootNode.Children[key]; ok {
@@ -72,7 +72,7 @@ func ParseConfig(data []byte) error {
 	// rootNode 应该是 MappingNode
 	if rootNode.Kind != MappingNode {
 		// 如果根节点不是 Map，无法通过 Key 路由，这通常不符合 Config 文件的习惯
-		return fmt.Errorf("config root must be a mapping")
+		return uerror.New("config root must be a mapping")
 	}
 
 	for key, cb := range registry {

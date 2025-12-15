@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"iutime.com/utime/uf/uerror"
+	"github.com/whosafe/uf/uerror"
 )
 
 func testError() error {
@@ -18,7 +18,6 @@ func recursiveCall(n int) {
 	}
 	recursiveCall(n + 1)
 }
-
 
 func main() {
 

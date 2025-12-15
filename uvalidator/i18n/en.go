@@ -40,6 +40,9 @@ var en = map[string]string{
 	// OneOf 规则
 	"oneof": "{field} must be one of: {param}",
 
+	// In 规则
+	"in": "{field} must be one of: {param}",
+
 	// 字符串匹配规则
 	"contains":    "{field} must contain {param}",
 	"starts_with": "{field} must start with {param}",

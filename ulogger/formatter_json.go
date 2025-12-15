@@ -35,9 +35,16 @@ func (f *JSONFormatter) Format(r slog.Record, config *Config) ([]byte, error) {
 	}
 
 	// 属性
+	// 【安全修复】对敏感字段进行脱敏处理
 	attrs := make(map[string]interface{})
 	r.Attrs(func(a slog.Attr) bool {
-		attrs[a.Key] = a.Value.Any()
+		// 如果key是敏感字段,脱敏value
+		if isSensitiveKey(a.Key) {
+			attrs[a.Key] = "***REDACTED***"
+		} else {
+			// 对value进行脱敏检查
+			attrs[a.Key] = sanitizeAttrValue(a.Value)
+		}
 		return true
 	})
 	if len(attrs) > 0 {

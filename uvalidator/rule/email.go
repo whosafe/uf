@@ -3,9 +3,9 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 var emailRegex = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
@@ -28,7 +28,7 @@ func (e *Email) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (e *Email) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (e *Email) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("email", lang...)
 	return replaceAll(template, "{field}", field)
 }

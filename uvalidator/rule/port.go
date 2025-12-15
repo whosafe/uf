@@ -1,11 +1,11 @@
 package rule
 
 import (
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Port 端口号验证规�?(1-65535)
+// Port 端口号验证规则(1-65535)
 type Port struct{}
 
 // Validate 执行验证
@@ -19,7 +19,7 @@ func (p *Port) Validate(value any) bool {
 		if v == "" {
 			return true
 		}
-		// 尝试转换为整�?
+		// 尝试转换为整
 		var port int
 		for _, r := range v {
 			if r < '0' || r > '9' {
@@ -34,7 +34,7 @@ func (p *Port) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (p *Port) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (p *Port) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("port", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -44,7 +44,7 @@ func (p *Port) Name() string {
 	return "port"
 }
 
-// NewPort 创建端口号验证规�?
+// NewPort 创建端口号验证规则
 func NewPort() *Port {
 	return &Port{}
 }

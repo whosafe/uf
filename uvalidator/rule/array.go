@@ -3,12 +3,12 @@ package rule
 import (
 	"fmt"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Unique 数组元素唯一性验证规�?
+// Unique 数组元素唯一性验证规则
 type Unique struct{}
 
 // Validate 执行验证
@@ -47,7 +47,7 @@ func (u *Unique) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (u *Unique) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (u *Unique) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("unique", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -57,12 +57,12 @@ func (u *Unique) Name() string {
 	return "unique"
 }
 
-// NewUnique 创建数组唯一性验证规�?
+// NewUnique 创建数组唯一性验证规则
 func NewUnique() *Unique {
 	return &Unique{}
 }
 
-// ArrayMin 数组最小长度验证规�?
+// ArrayMin 数组最小长度验证规则
 type ArrayMin struct {
 	MinLength int
 }
@@ -82,7 +82,7 @@ func (a *ArrayMin) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (a *ArrayMin) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (a *ArrayMin) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("array_min", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", a.MinLength))
@@ -94,12 +94,12 @@ func (a *ArrayMin) Name() string {
 	return "array_min"
 }
 
-// NewArrayMin 创建数组最小长度验证规�?
+// NewArrayMin 创建数组最小长度验证规则
 func NewArrayMin(minLength int) *ArrayMin {
 	return &ArrayMin{MinLength: minLength}
 }
 
-// ArrayMax 数组最大长度验证规�?
+// ArrayMax 数组最大长度验证规则
 type ArrayMax struct {
 	MaxLength int
 }
@@ -119,7 +119,7 @@ func (a *ArrayMax) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (a *ArrayMax) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (a *ArrayMax) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("array_max", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", a.MaxLength))
@@ -131,12 +131,12 @@ func (a *ArrayMax) Name() string {
 	return "array_max"
 }
 
-// NewArrayMax 创建数组最大长度验证规�?
+// NewArrayMax 创建数组最大长度验证规则
 func NewArrayMax(maxLength int) *ArrayMax {
 	return &ArrayMax{MaxLength: maxLength}
 }
 
-// ArrayContains 数组包含特定值验证规�?
+// ArrayContains 数组包含特定值验证规则
 type ArrayContains struct {
 	ContainsValue any
 }
@@ -179,7 +179,7 @@ func (a *ArrayContains) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (a *ArrayContains) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (a *ArrayContains) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("array_contains", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%v", a.ContainsValue))

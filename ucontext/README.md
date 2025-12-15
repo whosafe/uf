@@ -15,7 +15,7 @@
 ## 📦 安装
 
 ```bash
-go get iutime.com/utime/uf/ucontext
+go get github.com/whosafe/uf/ucontext
 ```
 
 ## 🚀 快速开始
@@ -27,7 +27,7 @@ package main
 
 import (
     "context"
-    "iutime.com/utime/uf/ucontext"
+    "github.com/whosafe/uf/ucontext"
 )
 
 func main() {
@@ -47,8 +47,8 @@ func main() {
 
 ```go
 import (
-    "iutime.com/utime/uf/ucontext"
-    "iutime.com/utime/uf/ulogger"
+    "github.com/whosafe/uf/ucontext"
+    "github.com/whosafe/uf/ulogger"
 )
 
 func main() {

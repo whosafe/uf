@@ -3,9 +3,9 @@ package rule
 import (
 	"fmt"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Len 固定长度验证规则
@@ -26,10 +26,10 @@ func (l *Len) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (l *Len) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (l *Len) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("len", lang...)
 
-	// 替换占位�?
+	// 替换占位符
 	msg := template
 	msg = replaceAll(msg, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", l.Length))

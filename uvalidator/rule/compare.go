@@ -3,9 +3,9 @@ package rule
 import (
 	"fmt"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Gt 大于验证规则
@@ -28,7 +28,7 @@ func (g *Gt) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (g *Gt) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (g *Gt) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("gt", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", g.Value))
@@ -65,7 +65,7 @@ func (g *Gte) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (g *Gte) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (g *Gte) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("gte", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", g.Value))
@@ -102,7 +102,7 @@ func (l *Lt) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (l *Lt) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (l *Lt) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("lt", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", l.Value))
@@ -139,7 +139,7 @@ func (l *Lte) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (l *Lte) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (l *Lte) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("lte", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", l.Value))

@@ -3,12 +3,12 @@ package rule
 import (
 	"fmt"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Between 数值范围验证规�?(min <= value <= max)
+// Between 数值范围验证规则(min <= value <= max)
 type Between struct {
 	Min int
 	Max int
@@ -29,7 +29,7 @@ func (b *Between) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (b *Between) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (b *Between) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("between", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{min}", fmt.Sprintf("%d", b.Min))
@@ -42,7 +42,7 @@ func (b *Between) Name() string {
 	return "between"
 }
 
-// NewBetween 创建数值范围验证规�?
+// NewBetween 创建数值范围验证规则
 func NewBetween(min, max int) *Between {
 	return &Between{Min: min, Max: max}
 }

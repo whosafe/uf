@@ -22,7 +22,7 @@
 ## 📦 安装
 
 ```bash
-go get iutime.com/utime/uf/uconfig
+go get github.com/whosafe/uf/uconfig
 ```
 
 ## 🚀 快速开始
@@ -51,8 +51,8 @@ database:
 package main
 
 import (
-    "iutime.com/utime/uf/uconfig"
-    "iutime.com/utime/uf/uconv"
+    "github.com/whosafe/uf/uconfig"
+    "github.com/whosafe/uf/uconv"
 )
 
 // ServerConfig 服务器配置

@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// OneOf 枚举值验证规�?
+// OneOf 枚举值验证规则
 type OneOf struct {
-	Allowed []string // 允许的值列�?
+	Allowed []string // 允许的值列
 }
 
 // Validate 执行验证
@@ -34,10 +34,10 @@ func (o *OneOf) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (o *OneOf) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (o *OneOf) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("oneof", lang...)
 
-	// 替换占位�?
+	// 替换占位
 	msg := template
 	msg = replaceAll(msg, "{field}", field)
 	msg = replaceAll(msg, "{param}", strings.Join(o.Allowed, ", "))
@@ -50,12 +50,12 @@ func (o *OneOf) Name() string {
 	return "oneof"
 }
 
-// NewOneOf 创建枚举值验证规�?
+// NewOneOf 创建枚举值验证规则
 func NewOneOf(allowed ...string) *OneOf {
 	return &OneOf{Allowed: allowed}
 }
 
-// NewOneOfInt 创建整数枚举值验证规�?
+// NewOneOfInt 创建整数枚举值验证规则
 type OneOfInt struct {
 	Allowed []int
 }
@@ -76,7 +76,7 @@ func (o *OneOfInt) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (o *OneOfInt) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (o *OneOfInt) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("oneof", lang...)
 
 	// 转换为字符串
@@ -85,7 +85,7 @@ func (o *OneOfInt) GetMessage(field string, params map[string]string, lang ...uv
 		strs = append(strs, fmt.Sprintf("%d", v))
 	}
 
-	// 替换占位�?
+	// 替换占位
 	msg := template
 	msg = replaceAll(msg, "{field}", field)
 	msg = replaceAll(msg, "{param}", strings.Join(strs, ", "))
@@ -98,7 +98,7 @@ func (o *OneOfInt) Name() string {
 	return "oneof"
 }
 
-// NewOneOfInt 创建整数枚举值验证规�?
+// NewOneOfInt 创建整数枚举值验证规则
 func NewOneOfInt(allowed ...int) *OneOfInt {
 	return &OneOfInt{Allowed: allowed}
 }

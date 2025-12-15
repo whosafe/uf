@@ -4,7 +4,7 @@
 
 ## 包结构
 
-```
+``` sh
 uvalidator/
 ├── validator.go      # Validator 接口和 Rule 接口
 ├── errors.go         # 错误类型
@@ -54,7 +54,7 @@ var ZH = map[string]string{
 }
 
 // 规则中使用
-import "iutime.com/utime/uf/uvalidator/i18n"
+import "github.com/whosafe/uf/uvalidator/i18n"
 
 template := i18n.GetMessage("required")
 ```
@@ -67,8 +67,8 @@ template := i18n.GetMessage("required")
 package model
 
 import (
-    "iutime.com/utime/uf/uvalidator"
-    "iutime.com/utime/uf/uvalidator/rule"
+    "github.com/whosafe/uf/uvalidator"
+    "github.com/whosafe/uf/uvalidator/rule"
 )
 
 type CreateUserRequest struct {
@@ -190,7 +190,7 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 package rule
 
 import (
-    "iutime.com/utime/uf/uvalidator/i18n"
+    "github.com/whosafe/uf/uvalidator/i18n"
 )
 
 type Phone struct{}
@@ -203,7 +203,7 @@ func (p *Phone) Validate(value interface{}) bool {
     return len(str) == 11 && str[0] == '1'
 }
 
-func (p *Phone) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (p *Phone) GetMessage(field string, lang ...uvalidator.Language) string  {
     template := i18n.GetMessage("phone", lang...)
     return replaceAll(template, "{field}", field)
 }
@@ -343,6 +343,7 @@ func GetMessage(key string) string {
 
 ### 集合/数组规则
 
+- `In` / `InInt` / `InFloat` - 值在指定列表中验证（支持字符串、整数、浮点数）
 - `OneOf` / `OneOfInt` - 枚举值验证
 - `Unique` - 数组元素唯一性验证
 - `ArrayMin` / `ArrayMax` - 数组长度验证

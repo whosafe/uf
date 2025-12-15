@@ -1,11 +1,11 @@
 package main
 
 import (
-	"iutime.com/utime/uf/uconfig"
-	"iutime.com/utime/uf/ulogger"
+	"github.com/whosafe/uf/uconfig"
+	"github.com/whosafe/uf/ulogger"
 )
 
-func main() {
+func TestConfig() {
 	println("=== 测试 uconfig 集成 ===\n")
 
 	// 1. 注册 logger 到 uconfig

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"iutime.com/utime/uf/uerror"
+	"github.com/whosafe/uf/uerror"
 )
 
 // parser 简单的 YAML 解析器上下文
@@ -80,7 +80,7 @@ func parseRecursive(p *parser, parent *Node, minIndent int) error {
 				parent.Kind = SequenceNode
 			}
 			if parent.Kind != SequenceNode {
-				return uerror.WrapWithCode(1, fmt.Errorf("line %d: mixed mapping and sequence", p.current+1), "parse error")
+				return uerror.NewWithCode(1, fmt.Sprintf("line %d: mixed mapping and sequence", p.current+1))
 			}
 
 			// 列表项内容
@@ -116,7 +116,7 @@ func parseRecursive(p *parser, parent *Node, minIndent int) error {
 		if colonIdx == -1 {
 			// 既不是列表项 "- " 也没有 separator ": " -> 可能是纯 Scalar 或者是错误?
 			// 在 Config 文件中，顶层通常是 Key: Value
-			return uerror.WrapWithCode(1, fmt.Errorf("line %d: expected key: value", p.current+1), "parse error")
+			return uerror.NewWithCode(1, fmt.Sprintf("line %d: expected key: value", p.current+1))
 		}
 
 		key := strings.TrimSpace(trimLine[:colonIdx])
@@ -125,7 +125,7 @@ func parseRecursive(p *parser, parent *Node, minIndent int) error {
 		if parent.Kind != MappingNode {
 			// 如果之前已经被标记为 Sequence，这里出错了
 			if parent.Kind == SequenceNode {
-				return uerror.WrapWithCode(1, fmt.Errorf("line %d: mixed mapping and sequence", p.current+1), "parse error")
+				return uerror.NewWithCode(1, fmt.Sprintf("line %d: mixed mapping and sequence", p.current+1))
 			}
 			parent.Kind = MappingNode
 			if parent.Children == nil {

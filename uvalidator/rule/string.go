@@ -3,9 +3,9 @@ package rule
 import (
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Contains 包含子串验证规则
@@ -28,7 +28,7 @@ func (c *Contains) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (c *Contains) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (c *Contains) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("contains", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", c.Substring)
@@ -45,7 +45,7 @@ func NewContains(substring string) *Contains {
 	return &Contains{Substring: substring}
 }
 
-// StartsWith �?..开头验证规�?
+// StartsWith ..开头验证规则
 type StartsWith struct {
 	Prefix string
 }
@@ -65,7 +65,7 @@ func (s *StartsWith) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (s *StartsWith) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (s *StartsWith) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("starts_with", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", s.Prefix)
@@ -77,12 +77,12 @@ func (s *StartsWith) Name() string {
 	return "starts_with"
 }
 
-// NewStartsWith 创建�?..开头验证规�?
+// NewStartsWith 创建..开头验证规则
 func NewStartsWith(prefix string) *StartsWith {
 	return &StartsWith{Prefix: prefix}
 }
 
-// EndsWith �?..结尾验证规则
+// EndsWith ..结尾验证规则
 type EndsWith struct {
 	Suffix string
 }
@@ -102,7 +102,7 @@ func (e *EndsWith) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (e *EndsWith) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (e *EndsWith) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("ends_with", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", e.Suffix)
@@ -114,7 +114,7 @@ func (e *EndsWith) Name() string {
 	return "ends_with"
 }
 
-// NewEndsWith 创建�?..结尾验证规则
+// NewEndsWith 创建..结尾验证规则
 func NewEndsWith(suffix string) *EndsWith {
 	return &EndsWith{Suffix: suffix}
 }

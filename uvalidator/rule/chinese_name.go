@@ -3,12 +3,12 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// 中文姓名正则 (2-20个中文字�?支持·)
+// 中文姓名正则 (2-20个中文字字符支持·)
 var chineseNameRegex = regexp.MustCompile(`^[\p{Han}·]{2,20}$`)
 
 // ChineseName 中文姓名验证规则
@@ -29,7 +29,7 @@ func (c *ChineseName) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (c *ChineseName) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (c *ChineseName) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("chinese_name", lang...)
 	return replaceAll(template, "{field}", field)
 }

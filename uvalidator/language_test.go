@@ -3,8 +3,8 @@ package uvalidator_test
 import (
 	"testing"
 
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/rule"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/rule"
 )
 
 // TestGlobalLanguage 测试全局语言设置
@@ -15,7 +15,7 @@ func TestGlobalLanguage(t *testing.T) {
 	requiredRule := rule.NewRequired()
 
 	// 不传语言参数,使用全局设置
-	msg := requiredRule.GetMessage("Username", nil)
+	msg := requiredRule.GetMessage("Username")
 	expected := "Username不能为空"
 	if msg != expected {
 		t.Errorf("Expected '%s', got '%s'", expected, msg)
@@ -23,7 +23,7 @@ func TestGlobalLanguage(t *testing.T) {
 
 	// 切换全局语言为英文
 	uvalidator.SetLanguage(uvalidator.LanguageEN)
-	msg = requiredRule.GetMessage("Username", nil)
+	msg = requiredRule.GetMessage("Username")
 	expected = "Username is required"
 	if msg != expected {
 		t.Errorf("Expected '%s', got '%s'", expected, msg)
@@ -38,21 +38,21 @@ func TestRequestLevelLanguage(t *testing.T) {
 	requiredRule := rule.NewRequired()
 
 	// 测试1: 显式传入中文
-	msg := requiredRule.GetMessage("Username", nil, uvalidator.LanguageZH)
+	msg := requiredRule.GetMessage("Username", uvalidator.LanguageZH)
 	expected := "Username不能为空"
 	if msg != expected {
 		t.Errorf("Expected '%s', got '%s'", expected, msg)
 	}
 
 	// 测试2: 显式传入英文
-	msg = requiredRule.GetMessage("Email", nil, uvalidator.LanguageEN)
+	msg = requiredRule.GetMessage("Email", uvalidator.LanguageEN)
 	expected = "Email is required"
 	if msg != expected {
 		t.Errorf("Expected '%s', got '%s'", expected, msg)
 	}
 
 	// 测试3: 不传语言参数,应使用全局设置(英文)
-	msg = requiredRule.GetMessage("Password", nil)
+	msg = requiredRule.GetMessage("Password")
 	expected = "Password is required"
 	if msg != expected {
 		t.Errorf("Expected '%s', got '%s'", expected, msg)
@@ -88,24 +88,24 @@ func TestParseAcceptLanguage(t *testing.T) {
 func TestMultipleRulesWithLanguage(t *testing.T) {
 	// 测试不同规则使用不同语言
 	emailRule := rule.NewEmail()
-	minRule := rule.NewMin(3)
+	minRule := rule.NewMinLength(3)
 	phoneRule := rule.NewPhone()
 
 	// 使用中文
 	lang := uvalidator.LanguageZH
 
-	emailMsg := emailRule.GetMessage("Email", nil, lang)
+	emailMsg := emailRule.GetMessage("Email", lang)
 	if emailMsg != "Email必须是有效的邮箱地址" {
 		t.Errorf("Email rule message incorrect: %s", emailMsg)
 	}
 
-	minMsg := minRule.GetMessage("Username", map[string]string{"type": "string"}, lang)
+	minMsg := minRule.GetMessage("Username", lang)
 	expected := "Username长度不能少于3个字符"
 	if minMsg != expected {
 		t.Errorf("Min rule message incorrect: expected '%s', got '%s'", expected, minMsg)
 	}
 
-	phoneMsg := phoneRule.GetMessage("Phone", nil, lang)
+	phoneMsg := phoneRule.GetMessage("Phone", lang)
 	if phoneMsg != "Phone必须是有效的手机号" {
 		t.Errorf("Phone rule message incorrect: %s", phoneMsg)
 	}
@@ -121,7 +121,7 @@ func TestConcurrentLanguageSelection(t *testing.T) {
 	// 协程1: 使用中文
 	go func() {
 		for i := 0; i < 100; i++ {
-			msg := requiredRule.GetMessage("Field", nil, uvalidator.LanguageZH)
+			msg := requiredRule.GetMessage("Field", uvalidator.LanguageZH)
 			if msg != "Field不能为空" {
 				t.Errorf("Concurrent test failed: expected Chinese message, got %s", msg)
 			}
@@ -132,7 +132,7 @@ func TestConcurrentLanguageSelection(t *testing.T) {
 	// 协程2: 使用英文
 	go func() {
 		for i := 0; i < 100; i++ {
-			msg := requiredRule.GetMessage("Field", nil, uvalidator.LanguageEN)
+			msg := requiredRule.GetMessage("Field", uvalidator.LanguageEN)
 			if msg != "Field is required" {
 				t.Errorf("Concurrent test failed: expected English message, got %s", msg)
 			}
@@ -200,7 +200,7 @@ func TestNewRulesWithLanguage(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			msg := tt.rule.GetMessage(tt.field, nil, tt.lang)
+			msg := tt.rule.GetMessage(tt.field, tt.lang)
 			if msg != tt.expected {
 				t.Errorf("Expected '%s', got '%s'", tt.expected, msg)
 			}

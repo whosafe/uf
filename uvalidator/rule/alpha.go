@@ -3,11 +3,11 @@ package rule
 import (
 	"unicode"
 
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Alpha 只包含字母验证规�?
+// Alpha 只包含字母验证规
 type Alpha struct{}
 
 // Validate 执行验证
@@ -30,7 +30,7 @@ func (a *Alpha) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (a *Alpha) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (a *Alpha) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("alpha", lang...)
 	return replaceAll(template, "{field}", field)
 }

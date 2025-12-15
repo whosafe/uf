@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"iutime.com/utime/uf/uconfig"
-	"iutime.com/utime/uf/uconv"
+	"github.com/whosafe/uf/uconfig"
+	"github.com/whosafe/uf/uconv"
 )
 
 // ServerConfig 服务器配置

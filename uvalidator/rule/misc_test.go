@@ -3,7 +3,7 @@ package rule_test
 import (
 	"testing"
 
-	"iutime.com/utime/uf/uvalidator/rule"
+	"github.com/whosafe/uf/uvalidator/rule"
 )
 
 func TestFileExtension(t *testing.T) {

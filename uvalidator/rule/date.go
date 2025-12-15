@@ -3,9 +3,9 @@ package rule
 import (
 	"time"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 const (
@@ -17,7 +17,7 @@ const (
 
 // Date 日期格式验证规则
 type Date struct {
-	Format string // 日期格式,为空则使用默认格�?
+	Format string // 日期格式,为空则使用默认格式
 }
 
 // Validate 执行验证
@@ -41,7 +41,7 @@ func (d *Date) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (d *Date) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (d *Date) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("date", lang...)
 	msg := replaceAll(template, "{field}", field)
 	format := d.Format
@@ -68,7 +68,7 @@ func NewDate(format ...string) *Date {
 
 // DateTime 日期时间格式验证规则
 type DateTime struct {
-	Format string // 日期时间格式,为空则使用默认格�?
+	Format string // 日期时间格式,为空则使用默认格式
 }
 
 // Validate 执行验证
@@ -92,7 +92,7 @@ func (dt *DateTime) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (dt *DateTime) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (dt *DateTime) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("datetime", lang...)
 	msg := replaceAll(template, "{field}", field)
 	format := dt.Format

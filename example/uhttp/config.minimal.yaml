@@ -1,0 +1,14 @@
+# 最小化配置示例
+
+server:
+  name: "minimal-api"
+  protocol: "http"
+  address: ":8080"
+  
+  access_log:
+    enabled: true
+    level: "info"
+  
+  error_log:
+    enabled: true
+    level: "error"

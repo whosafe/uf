@@ -4,8 +4,8 @@ import (
 	"context"
 	"log/slog"
 
-	"iutime.com/utime/uf/uconfig"
-	"iutime.com/utime/uf/ucontext"
+	"github.com/whosafe/uf/uconfig"
+	"github.com/whosafe/uf/ucontext"
 )
 
 // 全局默认 Logger
@@ -42,6 +42,9 @@ func DebugCtx(ctx context.Context, msg string, args ...any) {
 		if tc != nil {
 			args = append(args, "trace_id", tc.TraceID, "span_id", tc.SpanID)
 		}
+		if tc.ParentSpanID != "" {
+			args = append(args, "parent_span_id", tc.ParentSpanID)
+		}
 	}
 	Debug(msg, args...)
 }
@@ -52,6 +55,9 @@ func InfoCtx(ctx context.Context, msg string, args ...any) {
 		tc := ucontext.FromContext(ctx)
 		if tc != nil {
 			args = append(args, "trace_id", tc.TraceID, "span_id", tc.SpanID)
+		}
+		if tc.ParentSpanID != "" {
+			args = append(args, "parent_span_id", tc.ParentSpanID)
 		}
 	}
 	Info(msg, args...)
@@ -64,6 +70,9 @@ func WarnCtx(ctx context.Context, msg string, args ...any) {
 		if tc != nil {
 			args = append(args, "trace_id", tc.TraceID, "span_id", tc.SpanID)
 		}
+		if tc.ParentSpanID != "" {
+			args = append(args, "parent_span_id", tc.ParentSpanID)
+		}
 	}
 	Warn(msg, args...)
 }
@@ -74,6 +83,9 @@ func ErrorCtx(ctx context.Context, msg string, args ...any) {
 		tc := ucontext.FromContext(ctx)
 		if tc != nil {
 			args = append(args, "trace_id", tc.TraceID, "span_id", tc.SpanID)
+		}
+		if tc.ParentSpanID != "" {
+			args = append(args, "parent_span_id", tc.ParentSpanID)
 		}
 	}
 	Error(msg, args...)

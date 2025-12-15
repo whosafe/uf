@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// FileExtension 文件扩展名验证规�?
+// FileExtension 文件扩展名验证规则
 type FileExtension struct {
 	AllowedExtensions []string // 允许的扩展名列表
 }
@@ -25,7 +25,7 @@ func (f *FileExtension) Validate(value any) bool {
 		return true
 	}
 
-	// 获取文件扩展�?
+	// 获取文件扩展名
 	lastDot := -1
 	for i := len(str) - 1; i >= 0; i-- {
 		if str[i] == '.' {
@@ -40,7 +40,7 @@ func (f *FileExtension) Validate(value any) bool {
 
 	ext := strings.ToLower(str[lastDot+1:])
 
-	// 检查是否在允许列表�?
+	// 检查是否在允许列表中
 	for _, allowed := range f.AllowedExtensions {
 		if strings.ToLower(allowed) == ext {
 			return true
@@ -51,7 +51,7 @@ func (f *FileExtension) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (f *FileExtension) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (f *FileExtension) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("file_extension", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", strings.Join(f.AllowedExtensions, ", "))
@@ -63,7 +63,7 @@ func (f *FileExtension) Name() string {
 	return "file_extension"
 }
 
-// NewFileExtension 创建文件扩展名验证规�?
+// NewFileExtension 创建文件扩展名验证规则
 func NewFileExtension(allowedExtensions ...string) *FileExtension {
 	return &FileExtension{AllowedExtensions: allowedExtensions}
 }
@@ -84,7 +84,7 @@ func (m *MimeType) Validate(value any) bool {
 		return true
 	}
 
-	// 检查是否在允许列表�?
+	// 检查是否在允许列表中
 	for _, allowed := range m.AllowedMimeTypes {
 		if str == allowed {
 			return true
@@ -95,7 +95,7 @@ func (m *MimeType) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (m *MimeType) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (m *MimeType) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("mime_type", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", strings.Join(m.AllowedMimeTypes, ", "))
@@ -114,8 +114,8 @@ func NewMimeType(allowedMimeTypes ...string) *MimeType {
 
 // FileSize 文件大小验证规则
 type FileSize struct {
-	MinSize int64 // 最小大�?字节),0表示不限�?
-	MaxSize int64 // 最大大�?字节),0表示不限�?
+	MinSize int64 // 最小字节),0表示不限制
+	MaxSize int64 // 最大字节),0表示不限制
 }
 
 // Validate 执行验证
@@ -143,7 +143,7 @@ func (f *FileSize) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (f *FileSize) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (f *FileSize) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("file_size", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{min}", fmt.Sprintf("%d", f.MinSize))

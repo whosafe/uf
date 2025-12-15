@@ -3,9 +3,9 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // 域名正则
@@ -29,7 +29,7 @@ func (d *Domain) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (d *Domain) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (d *Domain) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("domain", lang...)
 	return replaceAll(template, "{field}", field)
 }

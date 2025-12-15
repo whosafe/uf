@@ -2,6 +2,8 @@ package uconfig
 
 import (
 	"fmt"
+
+	"github.com/whosafe/uf/uerror"
 )
 
 // NodeType 节点类型
@@ -32,7 +34,7 @@ func (n *Node) String() string {
 // Iter 遍历 Sequence
 func (n *Node) Iter(cb func(i int, v *Node) error) error {
 	if n.Kind != SequenceNode {
-		return fmt.Errorf("node is not a list")
+		return uerror.New("node is not a list")
 	}
 	for i, v := range n.List {
 		if err := cb(i, v); err != nil {
@@ -54,7 +56,7 @@ func (n *Node) Decode(v any) error {
 	// 我们需要 cast v 为 Unmarshaler interface
 	if u, ok := v.(interface{ UnmarshalYAML(string, *Node) error }); ok {
 		if n.Kind != MappingNode {
-			return fmt.Errorf("cannot decode non-map node to struct")
+			return uerror.New("cannot decode non-map node to struct")
 		}
 		for k, child := range n.Children {
 			if err := u.UnmarshalYAML(k, child); err != nil {
@@ -64,5 +66,5 @@ func (n *Node) Decode(v any) error {
 		return nil
 	}
 
-	return fmt.Errorf("type %T does not implement UnmarshalYAML(key string, value *Node) error", v)
+	return uerror.New(fmt.Sprintf("type %T does not implement UnmarshalYAML(key string, value *Node) error", v))
 }

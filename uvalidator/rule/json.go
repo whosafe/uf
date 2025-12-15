@@ -3,9 +3,9 @@ package rule
 import (
 	"encoding/json"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // JSON JSON格式验证规则
@@ -26,7 +26,7 @@ func (j *JSON) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (j *JSON) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (j *JSON) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("json", lang...)
 	return replaceAll(template, "{field}", field)
 }

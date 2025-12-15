@@ -3,7 +3,7 @@ package rule_test
 import (
 	"testing"
 
-	"iutime.com/utime/uf/uvalidator/rule"
+	"github.com/whosafe/uf/uvalidator/rule"
 )
 
 func TestIP(t *testing.T) {

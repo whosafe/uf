@@ -1,8 +1,8 @@
 package rule
 
 import (
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // BankCard 银行卡号验证规则 (使用Luhn算法)
@@ -19,13 +19,13 @@ func (b *BankCard) Validate(value any) bool {
 		return true
 	}
 
-	// 银行卡号通常�?3-19位数�?
+	// 银行卡号通常是13-19位数位
 	length := len(str)
 	if length < 13 || length > 19 {
 		return false
 	}
 
-	// 检查是否全是数�?
+	// 检查是否全是数字
 	for _, r := range str {
 		if r < '0' || r > '9' {
 			return false
@@ -41,7 +41,7 @@ func luhnCheck(cardNumber string) bool {
 	sum := 0
 	isDouble := false
 
-	// 从右往左遍�?
+	// 从右往左遍历
 	for i := len(cardNumber) - 1; i >= 0; i-- {
 		digit := int(cardNumber[i] - '0')
 
@@ -60,7 +60,7 @@ func luhnCheck(cardNumber string) bool {
 }
 
 // GetMessage 获取错误消息
-func (b *BankCard) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (b *BankCard) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("bankcard", lang...)
 	return replaceAll(template, "{field}", field)
 }

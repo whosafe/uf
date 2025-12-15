@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"time"
 
-	"iutime.com/utime/uf/ulogger"
+	"github.com/whosafe/uf/ulogger"
 )
 
 func main() {
@@ -25,6 +25,10 @@ func main() {
 
 	// 示例 6: 全局 Logger
 	globalLoggerExample()
+
+	FormatDemo()
+
+	TestConfig()
 }
 
 // 示例 1: 基本用法

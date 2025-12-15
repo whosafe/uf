@@ -12,7 +12,7 @@ type Rule interface {
 
 	// GetMessage 获取错误消息
 	// lang 参数可选,如果为空则使用全局语言设置
-	GetMessage(field string, params map[string]string, lang ...Language) string
+	GetMessage(field string, lang ...Language) string
 
 	// Name 规则名称
 	Name() string

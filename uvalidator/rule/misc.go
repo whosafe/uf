@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Confirmed 确认字段验证规则 (用于密码确认等场�?
+// Confirmed 确认字段验证规则 (用于密码确认等场景）
 type Confirmed struct {
-	ConfirmationValue any // 确认�?
+	ConfirmationValue any // 确认值
 }
 
 // Validate 执行验证
@@ -20,7 +20,7 @@ func (c *Confirmed) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (c *Confirmed) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (c *Confirmed) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("confirmed", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -35,7 +35,7 @@ func NewConfirmed(confirmationValue any) *Confirmed {
 	return &Confirmed{ConfirmationValue: confirmationValue}
 }
 
-// Distinct 不同于指定值验证规�?
+// Distinct 不同于指定值验证规则
 type Distinct struct {
 	DisallowedValue any
 }
@@ -46,7 +46,7 @@ func (d *Distinct) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (d *Distinct) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (d *Distinct) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("distinct", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%v", d.DisallowedValue))
@@ -58,12 +58,12 @@ func (d *Distinct) Name() string {
 	return "distinct"
 }
 
-// NewDistinct 创建不同于指定值验证规�?
+// NewDistinct 创建不同于指定值验证规则
 func NewDistinct(disallowedValue any) *Distinct {
 	return &Distinct{DisallowedValue: disallowedValue}
 }
 
-// NotIn 不在指定列表中验证规�?
+// NotIn 不在指定列表中验证规则
 type NotIn struct {
 	Disallowed []string
 }
@@ -88,7 +88,7 @@ func (n *NotIn) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *NotIn) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *NotIn) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("not_in", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", strings.Join(n.Disallowed, ", "))
@@ -100,7 +100,7 @@ func (n *NotIn) Name() string {
 	return "not_in"
 }
 
-// NewNotIn 创建不在列表中验证规�?
+// NewNotIn 创建不在列表中验证规则
 func NewNotIn(disallowed ...string) *NotIn {
 	return &NotIn{Disallowed: disallowed}
 }
@@ -114,7 +114,7 @@ func (n *Nullable) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *Nullable) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *Nullable) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("nullable", lang...)
 	return replaceAll(template, "{field}", field)
 }

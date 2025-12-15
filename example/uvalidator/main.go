@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/rule"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/rule"
 )
 
 // CreateUserRequest 创建用户请求
@@ -29,7 +29,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Username",
 			requiredRule.Name(),
 			r.Username,
-			requiredRule.GetMessage("Username", nil, lang...),
+			requiredRule.GetMessage("Username", lang...),
 		))
 	}
 
@@ -39,7 +39,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Username",
 			minRule.Name(),
 			r.Username,
-			minRule.GetMessage("Username", map[string]string{"type": "string"}, lang...),
+			minRule.GetMessage("Username", lang...),
 		))
 	}
 
@@ -49,7 +49,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Username",
 			maxRule.Name(),
 			r.Username,
-			maxRule.GetMessage("Username", map[string]string{"type": "string"}, lang...),
+			maxRule.GetMessage("Username", lang...),
 		))
 	}
 
@@ -59,7 +59,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Email",
 			requiredRule.Name(),
 			r.Email,
-			requiredRule.GetMessage("Email", nil, lang...),
+			requiredRule.GetMessage("Email", lang...),
 		))
 	}
 
@@ -69,7 +69,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Email",
 			emailRule.Name(),
 			r.Email,
-			emailRule.GetMessage("Email", nil, lang...),
+			emailRule.GetMessage("Email", lang...),
 		))
 	}
 
@@ -79,7 +79,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Password",
 			requiredRule.Name(),
 			r.Password,
-			requiredRule.GetMessage("Password", nil, lang...),
+			requiredRule.GetMessage("Password", lang...),
 		))
 	}
 
@@ -89,7 +89,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Password",
 			strongPwdRule.Name(),
 			r.Password,
-			strongPwdRule.GetMessage("Password", nil, lang...),
+			strongPwdRule.GetMessage("Password", lang...),
 		))
 	}
 
@@ -100,7 +100,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 			"Age",
 			betweenRule.Name(),
 			r.Age,
-			betweenRule.GetMessage("Age", nil, lang...),
+			betweenRule.GetMessage("Age", lang...),
 		))
 	}
 
@@ -112,7 +112,7 @@ func (r *CreateUserRequest) Validate(lang ...uvalidator.Language) error {
 				"Phone",
 				phoneRule.Name(),
 				r.Phone,
-				phoneRule.GetMessage("Phone", nil, lang...),
+				phoneRule.GetMessage("Phone", lang...),
 			))
 		}
 	}
@@ -153,7 +153,7 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("=== uvalidator 使用示例 ===\n")
+	fmt.Println("=== uvalidator 使用示例 ===")
 
 	// 示例 1: 基本验证 (使用全局语言)
 	fmt.Println("--- 示例 1: 基本验证 (全局语言) ---")
@@ -210,6 +210,8 @@ func main() {
 	// 示例 4: 各种规则演示
 	fmt.Println("--- 示例 4: 各种规则演示 ---")
 	demonstrateRules()
+
+	InExample()
 
 	// 示例 5: HTTP 服务器
 	fmt.Println("\n--- 示例 5: HTTP 服务器 ---")

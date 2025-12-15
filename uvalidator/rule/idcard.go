@@ -4,16 +4,16 @@ import (
 	"regexp"
 	"strconv"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // 身份证号正则
 var idCard15Regex = regexp.MustCompile(`^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$`)
 var idCard18Regex = regexp.MustCompile(`^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$`)
 
-// IDCard 身份证号验证规则 (15位或18�?
+// IDCard 身份证号验证规则 (15位或18位）
 type IDCard struct{}
 
 // Validate 执行验证
@@ -34,14 +34,14 @@ func (i *IDCard) Validate(value any) bool {
 		if !idCard18Regex.MatchString(str) {
 			return false
 		}
-		// 验证校验�?
+		// 验证校验
 		return validateIDCard18CheckCode(str)
 	}
 
 	return false
 }
 
-// validateIDCard18CheckCode 验证18位身份证校验�?
+// validateIDCard18CheckCode 验证18位身份证校验
 func validateIDCard18CheckCode(idCard string) bool {
 	// 加权因子
 	factor := []int{7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2}
@@ -67,7 +67,7 @@ func validateIDCard18CheckCode(idCard string) bool {
 }
 
 // GetMessage 获取错误消息
-func (i *IDCard) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (i *IDCard) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("idcard", lang...)
 	return replaceAll(template, "{field}", field)
 }

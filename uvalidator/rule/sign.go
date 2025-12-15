@@ -1,8 +1,8 @@
 package rule
 
 import (
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Positive 正数验证规则 (value > 0)
@@ -23,7 +23,7 @@ func (p *Positive) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (p *Positive) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (p *Positive) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("positive", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -56,7 +56,7 @@ func (n *Negative) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *Negative) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *Negative) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("negative", lang...)
 	return replaceAll(template, "{field}", field)
 }

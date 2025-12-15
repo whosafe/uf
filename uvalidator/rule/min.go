@@ -3,14 +3,14 @@ package rule
 import (
 	"fmt"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Min 最小值验证规�?
+// Min 最小值验证规则
 type Min struct {
-	MinValue int // 最小�?
+	MinValue int // 最小值
 }
 
 // Validate 执行验证
@@ -32,16 +32,11 @@ func (m *Min) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (m *Min) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
-	// 判断是字符串长度还是数�?
-	key := "min"
-	if params["type"] == "string" {
-		key = "min_length"
-	}
+func (m *Min) GetMessage(field string, lang ...uvalidator.Language) string {
+	// 默认使用数值消息
+	template := i18n.GetMessage("min", lang...)
 
-	template := i18n.GetMessage(key, lang...)
-
-	// 替换占位�?
+	// 替换占位符
 	msg := template
 	msg = replaceAll(msg, "{field}", field)
 	msg = replaceAll(msg, "{param}", fmt.Sprintf("%d", m.MinValue))
@@ -54,12 +49,12 @@ func (m *Min) Name() string {
 	return "min"
 }
 
-// NewMin 创建最小值验证规�?
+// NewMin 创建最小值验证规则
 func NewMin(minValue int) *Min {
 	return &Min{MinValue: minValue}
 }
 
-// replaceAll 简单的字符串替�?
+// replaceAll 简单的字符串替换
 func replaceAll(s, old, new string) string {
 	result := ""
 	for {

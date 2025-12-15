@@ -1,8 +1,8 @@
 package rule
 
 import (
-	"iutime.com/utime/uf/uvalidator"
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // ASCII ASCII字符验证规则 (0-127)
@@ -28,7 +28,7 @@ func (a *ASCII) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (a *ASCII) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (a *ASCII) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("ascii", lang...)
 	return replaceAll(template, "{field}", field)
 }

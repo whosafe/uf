@@ -3,9 +3,9 @@ package rule
 import (
 	"encoding/base64"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Base64 Base64编码验证规则
@@ -27,7 +27,7 @@ func (b *Base64) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (b *Base64) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (b *Base64) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("base64", lang...)
 	return replaceAll(template, "{field}", field)
 }

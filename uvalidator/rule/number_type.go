@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // Integer 整数验证规则
@@ -33,7 +33,7 @@ func (i *Integer) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (i *Integer) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (i *Integer) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("integer", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -50,7 +50,7 @@ func NewInteger() *Integer {
 
 // Decimal 小数验证规则
 type Decimal struct {
-	DecimalPlaces int // 小数位数,0表示不限�?
+	DecimalPlaces int // 小数位数,0表示不限至
 }
 
 // Validate 执行验证
@@ -60,13 +60,13 @@ func (d *Decimal) Validate(value any) bool {
 		if d.DecimalPlaces == 0 {
 			return true
 		}
-		// 检查小数位�?
+		// 检查小数位
 		str := fmt.Sprintf("%f", v)
 		parts := strings.Split(str, ".")
 		if len(parts) != 2 {
 			return false
 		}
-		// 去除尾部�?
+		// 去除尾部
 		decimal := strings.TrimRight(parts[1], "0")
 		return len(decimal) <= d.DecimalPlaces
 	case string:
@@ -92,7 +92,7 @@ func (d *Decimal) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (d *Decimal) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (d *Decimal) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("decimal", lang...)
 	msg := replaceAll(template, "{field}", field)
 	if d.DecimalPlaces > 0 {

@@ -3,9 +3,9 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 var urlRegex = regexp.MustCompile(`^https?://[^\s/$.?#].[^\s]*$`)
@@ -28,7 +28,7 @@ func (u *URL) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (u *URL) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (u *URL) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("url", lang...)
 	return replaceAll(template, "{field}", field)
 }

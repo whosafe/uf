@@ -1,6 +1,6 @@
 package i18n
 
-import "iutime.com/utime/uf/uvalidator"
+import "github.com/whosafe/uf/uvalidator"
 
 // GetMessage 获取错误消息
 // lang 参数可选,如果不传则使用全局语言设置

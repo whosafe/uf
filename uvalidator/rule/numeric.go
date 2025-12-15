@@ -3,12 +3,12 @@ package rule
 import (
 	"unicode"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// Numeric 只包含数字验证规�?
+// Numeric 只包含数字验证规则
 type Numeric struct{}
 
 // Validate 执行验证
@@ -31,7 +31,7 @@ func (n *Numeric) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (n *Numeric) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (n *Numeric) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("numeric", lang...)
 	return replaceAll(template, "{field}", field)
 }

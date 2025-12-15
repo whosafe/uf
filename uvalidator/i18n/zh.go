@@ -40,6 +40,9 @@ var zh = map[string]string{
 	// OneOf 规则
 	"oneof": "{field}必须是以下值之一: {param}",
 
+	// In 规则
+	"in": "{field}必须是以下值之一: {param}",
+
 	// 字符串匹配规则
 	"contains":    "{field}必须包含{param}",
 	"starts_with": "{field}必须以{param}开头",

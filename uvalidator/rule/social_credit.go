@@ -3,12 +3,12 @@ package rule
 import (
 	"regexp"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// 统一社会信用代码正则 (18�?
+// 统一社会信用代码正则 (18为)
 var socialCreditRegex = regexp.MustCompile(`^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$`)
 
 // UnifiedSocialCreditCode 统一社会信用代码验证规则
@@ -33,7 +33,7 @@ func (u *UnifiedSocialCreditCode) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (u *UnifiedSocialCreditCode) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (u *UnifiedSocialCreditCode) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("social_credit", lang...)
 	return replaceAll(template, "{field}", field)
 }

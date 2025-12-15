@@ -1,12 +1,11 @@
 package rule
 
 import (
-	"fmt"
 	"time"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // DateBefore 日期早于指定日期验证规则
@@ -45,7 +44,7 @@ func (db *DateBefore) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (db *DateBefore) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (db *DateBefore) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("date_before", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", db.CompareDate)
@@ -102,7 +101,7 @@ func (da *DateAfter) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (da *DateAfter) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (da *DateAfter) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("date_after", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{param}", da.CompareDate)
@@ -125,7 +124,7 @@ func NewDateAfter(compareDate string, format ...string) *DateAfter {
 
 // DateBetween 日期在指定范围内验证规则
 type DateBetween struct {
-	StartDate string // 开始日�?
+	StartDate string // 开始日期
 	EndDate   string // 结束日期
 	Format    string // 日期格式
 }
@@ -166,11 +165,11 @@ func (db *DateBetween) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (db *DateBetween) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (db *DateBetween) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("date_between", lang...)
 	msg := replaceAll(template, "{field}", field)
 	msg = replaceAll(msg, "{min}", db.StartDate)
-	msg = replaceAll(msg, "{max}", fmt.Sprintf("%s", db.EndDate))
+	msg = replaceAll(msg, "{max}", db.EndDate)
 	return msg
 }
 

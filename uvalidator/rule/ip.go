@@ -3,12 +3,12 @@ package rule
 import (
 	"net"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
-// IP IP地址验证规则 (IPv4 �?IPv6)
+// IP IP地址验证规则 (IPv4 与 IPv6)
 type IP struct{}
 
 // Validate 执行验证
@@ -26,7 +26,7 @@ func (i *IP) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (i *IP) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (i *IP) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("ip", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -64,7 +64,7 @@ func (i *IPv4) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (i *IPv4) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (i *IPv4) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("ipv4", lang...)
 	return replaceAll(template, "{field}", field)
 }
@@ -102,7 +102,7 @@ func (i *IPv6) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (i *IPv6) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (i *IPv6) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("ipv6", lang...)
 	return replaceAll(template, "{field}", field)
 }

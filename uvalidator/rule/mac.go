@@ -3,9 +3,9 @@ package rule
 import (
 	"net"
 
-	"iutime.com/utime/uf/uvalidator"
+	"github.com/whosafe/uf/uvalidator"
 
-	"iutime.com/utime/uf/uvalidator/i18n"
+	"github.com/whosafe/uf/uvalidator/i18n"
 )
 
 // MAC MAC地址验证规则
@@ -27,7 +27,7 @@ func (m *MAC) Validate(value any) bool {
 }
 
 // GetMessage 获取错误消息
-func (m *MAC) GetMessage(field string, params map[string]string, lang ...uvalidator.Language) string {
+func (m *MAC) GetMessage(field string, lang ...uvalidator.Language) string {
 	template := i18n.GetMessage("mac", lang...)
 	return replaceAll(template, "{field}", field)
 }

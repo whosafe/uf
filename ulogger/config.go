@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"iutime.com/utime/uf/uconfig"
-	"iutime.com/utime/uf/uconv"
+	"github.com/whosafe/uf/uconfig"
+	"github.com/whosafe/uf/uconv"
 )
 
 // Config 日志配置
