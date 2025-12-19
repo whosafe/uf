@@ -129,6 +129,11 @@ func (cmd *InitCommand) createProject(projectName string) error {
 
 	// 步骤3: 初始化 Go 模块
 	util.PrintStep(3, TotalSteps, "初始化 Go 模块...")
+	// 先获取最新版本的 UF 框架
+	if err := util.RunCommandInDir(projectName, "go", "get", "github.com/whosafe/uf@latest"); err != nil {
+		util.Warning("获取最新版本失败，请手动执行: go get github.com/whosafe/uf@latest")
+	}
+	// 然后执行 go mod tidy
 	if err := util.RunCommandInDir(projectName, "go", "mod", "tidy"); err != nil {
 		util.Warning("go mod tidy 失败，请手动执行")
 	}

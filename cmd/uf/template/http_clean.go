@@ -123,8 +123,6 @@ const HTTPCleanConfig = `server:
 const GoModTemplate = `module {{.ModulePath}}
 
 go 1.25
-
-require github.com/whosafe/uf v0.0.1
 `
 
 // .gitignore 模板
