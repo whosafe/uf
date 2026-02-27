@@ -114,17 +114,6 @@ func (q *QueryBuilder) WhereLike(field string, pattern string) *QueryBuilder {
 	return q
 }
 
-// joinStrings 连接字符串切片(辅助函数)
-func joinStrings(strs []string, sep string) string {
-	if len(strs) == 0 {
-		return ""
-	}
-	result := strs[0]
-	for i := 1; i < len(strs); i++ {
-		result += sep + strs[i]
-	}
-	return result
-}
 
 // Join 添加 INNER JOIN
 func (q *QueryBuilder) Join(table, on string) *QueryBuilder {
